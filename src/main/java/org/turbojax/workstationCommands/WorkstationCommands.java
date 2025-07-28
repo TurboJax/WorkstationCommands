@@ -19,17 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public final class WorkstationCommands extends JavaPlugin {
-    private static WorkstationCommands instance;
-    public static Logger logger = LoggerFactory.getLogger("WorkstationCommands");
-
-    public static WorkstationCommands getInstance() {
-        return instance;
-    }
-
     @Override
     public void onEnable() {
-        instance = this;
-
         saveDefaultConfig();
 
         HashMap<String,MenuType> menuTypes = new HashMap<>();
@@ -47,7 +38,6 @@ public final class WorkstationCommands extends JavaPlugin {
         menuTypes.put("brewingstand", MenuType.BREWING_STAND);
 
         // Loading commands if enabled in the config
-
         menuTypes.forEach((label, menuType) -> {
             if (getConfig().getBoolean(label + ".enabled")) {
                 // Getting the command
