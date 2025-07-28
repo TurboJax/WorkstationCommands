@@ -1,0 +1,156 @@
+# Config file for all WorkstationCommands commands
+# Here, you can enable/disable commands, add/remove aliases, and even manage the permissions for each command.
+
+# Layout Reference
+# <command>.enabled: Whether the command should be enabled.
+# <command>.aliases: A list of aliases for the command.
+# <command>.permission.name: The name of the permission that gives the user access to <command>.
+# <command>.permission.description: The description of the permission.
+# <command>.permission.default-level: The default level to assign the permission to.  (Can be "op", "not op", "true", or "false")
+# <command>.other-permission.name: The name of the permission that allows the user to use <command> on other users.
+# <command>.other-permission.description: The description of the permission.
+# <command>.other-permission.default-level: The default level to assign the permission to.  (Can be "op", "not op", "true", or "false")
+
+craftingtable:
+  enabled: true
+  aliases: ["craft"]
+  permission:
+    name: "workstationcommands.craftingtable"
+    description: "Allows players to use the /craftingtable command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.craftingtable.other"
+    description: "Allows players to use /craftingtable on other players"
+    default-level: "op"
+
+stonecutter:
+  enabled: true
+  aliases: ["cutter"]
+  permission:
+    name: "workstationcommands.stonecutter"
+    description: "Allows players to use the /stonecutter command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.stonecutter.other"
+    description: "Allows players to use /stonecutter on other players"
+    default-level: "op"
+
+loom:
+  enabled: true
+  aliases: []
+  permission:
+    name: "workstationcommands.loom"
+    description: "Allows players to use the /loom command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.loom.other"
+    description: "Allows players to use /loom on other players"
+    default-level: "op"
+
+cartographytable:
+  enabled: true
+  aliases: ["cartography"]
+  permission:
+    name: "workstationcommands.cartographytable"
+    description: "Allows players to use the /cartographytable command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.cartographytable.other"
+    description: "Allows players to use /cartographytable on other players"
+    default-level: "op"
+
+furnace:
+  enabled: true
+  aliases: ["smelt"]
+  permission:
+    name: "workstationcommands.furnace"
+    description: "Allows players to use the /furnace command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.furnace.other"
+    description: "Allows players to use /furnace on other players"
+    default-level: "op"
+
+blastfurnace:
+  enabled: true
+  aliases: ["blast"]
+  permission:
+    name: "workstationcommands.blastfurnace"
+    description: "Allows players to use the /blastfurnace command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.blastfurnace.other"
+    description: "Allows players to use /blastfurnace on other players"
+    default-level: "op"
+
+smoker:
+  enabled: true
+  aliases: ["smoke"]
+  permission:
+    name: "workstationcommands.smoker"
+    description: "Allows players to use the /smoker command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.smoker.other"
+    description: "Allows players to use /smoker on other players"
+    default-level: "op"
+
+smithingtable:
+  enabled: true
+  aliases: ["smith"]
+  permission:
+    name: "workstationcommands.smithingtable"
+    description: "Allows players to use the /smithingtable command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.smithingtable.other"
+    description: "Allows players to use /smithingtable on other players"
+    default-level: "op"
+
+anvil:
+  enabled: true
+  aliases: []
+  permission:
+    name: "workstationcommands.anvil"
+    description: "Allows players to use the /anvil command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.anvil.other"
+    description: "Allows players to use /anvil on other players"
+    default-level: "op"
+
+enchantingtable:
+  enabled: true
+  aliases: ["enchanting"]
+  permission:
+    name: "workstationcommands.enchantingtable"
+    description: "Allows players to use the /enchantingtable command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.enchantingtable.other"
+    description: "Allows players to use /enchantingtable on other players"
+    default-level: "op"
+
+grindstone:
+  enabled: true
+  aliases: ["grind"]
+  permission:
+    name: "workstationcommands.grindstone"
+    description: "Allows players to use the /grindstone command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.grindstone.other"
+    description: "Allows players to use /grindstone on other players"
+    default-level: "op"
+
+brewingstand:
+  enabled: true
+  aliases: ["brew"]
+  permission:
+    name: "workstationcommands.brewingstand"
+    description: "Allows players to use the /brewingstand command"
+    default-level: "op"
+  other-permission:
+    name: "workstationcommands.brewingstand.other"
+    description: "Allows players to use /brewingstand on other players"
+    default-level: "op"

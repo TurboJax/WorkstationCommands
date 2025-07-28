@@ -1,0 +1,53 @@
+name: WorkstationCommands
+version: '1.0'
+main: org.turbojax.workstationCommands.WorkstationCommands
+api-version: '1.21.4'
+
+commands:
+  craftingtable:
+    usage: "/craftingtable"
+    description: "Opens the crafting table GUI"
+
+  stonecutter:
+    usage: "/stonecutter"
+    description: "Opens the stonecutter GUI"
+
+  loom:
+    usage: "/loom"
+    description: "Opens the loom GUI"
+
+  cartographytable:
+    usage: "/cartographytable"
+    description: "Opens the cartography table GUI"
+
+  furnace:
+    usage: "/furnace"
+    description: "Opens the furnace GUI"
+
+  blastfurnace:
+    usage: "/blastfurnace"
+    description: "Opens the blast furnace GUI"
+
+  smoker:
+    usage: "/smoker"
+    description: "Opens the smoker GUI"
+
+  smithingtable:
+    usage: "/smithingtable"
+    description: "Opens the smithing table GUI"
+
+  anvil:
+    usage: "/anvil"
+    description: "Opens the anvil GUI"
+
+  enchantingtable:
+    usage: "/enchantingtable"
+    description: "Opens the enchanting table GUI"
+
+  grindstone:
+    usage: "/grindstone"
+    description: "Opens the grindstone GUI"
+
+  brewingstand:
+    usage: "/brewingstand"
+    description: "Opens the brewing stand GUI"
