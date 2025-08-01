@@ -1,5 +1,8 @@
 package org.turbojax.workstationCommands;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -9,14 +12,6 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 public final class WorkstationCommands extends JavaPlugin {
     @Override
@@ -40,6 +35,17 @@ public final class WorkstationCommands extends JavaPlugin {
         // Loading commands if enabled in the config
         menuTypes.forEach((label, menuType) -> {
             if (getConfig().getBoolean(label + ".enabled")) {
+                // Registering permissions
+                Permission permission = new Permission("label");
+                permission.setDefault(PermissionDefault.valueOf(getConfig().getString(label + ".permission.default-level")));
+                permission.setDescription(getConfig().getString(label + ".permission.description"));
+                getServer().getPluginManager().addPermission(permission);
+
+                Permission otherPermission = new Permission("label");
+                otherPermission.setDefault(PermissionDefault.valueOf(getConfig().getString(label + ".other-permission.default-level")));
+                otherPermission.setDescription(getConfig().getString(label + ".other-permission.description"));
+                getServer().getPluginManager().addPermission(otherPermission);
+                
                 // Getting the command
                 PluginCommand command = getCommand(label);
                 assert command != null;
