@@ -36,13 +36,13 @@ public final class WorkstationCommands extends JavaPlugin {
         menuTypes.forEach((label, menuType) -> {
             if (getConfig().getBoolean(label + ".enabled")) {
                 // Registering permissions
-                Permission permission = new Permission("label");
-                permission.setDefault(PermissionDefault.valueOf(getConfig().getString(label + ".permission.default-level")));
+                Permission permission = new Permission(getConfig().getString(label + ".permission.name"));
+                permission.setDefault(PermissionDefault.getByName(getConfig().getString(label + ".permission.default-level")));
                 permission.setDescription(getConfig().getString(label + ".permission.description"));
                 getServer().getPluginManager().addPermission(permission);
 
-                Permission otherPermission = new Permission("label");
-                otherPermission.setDefault(PermissionDefault.valueOf(getConfig().getString(label + ".other-permission.default-level")));
+                Permission otherPermission = new Permission(getConfig().getString(label + ".other-permission.name"));
+                otherPermission.setDefault(PermissionDefault.getByName(getConfig().getString(label + ".other-permission.default-level")));
                 otherPermission.setDescription(getConfig().getString(label + ".other-permission.description"));
                 getServer().getPluginManager().addPermission(otherPermission);
                 
