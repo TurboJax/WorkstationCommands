@@ -1,5 +1,5 @@
 name: WorkstationCommands
-version: '1.0'
+version: '1.0.1'
 main: org.turbojax.workstationCommands.WorkstationCommands
 api-version: '1.21.4'
 
