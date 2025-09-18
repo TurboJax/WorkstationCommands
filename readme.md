@@ -3,7 +3,7 @@ This is my first published minecraft plugin!
 It adds commands for each workstation in minecraft.  
 These commands provide as much configuration as I can reasonably give.  You can enable/disable commands, add/remove aliases, and manage specific permissions.  
 
-![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)
+[![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/workstationcommands)
 
 Since the permissions are configurable, here is a list of the defaults.  
 ## Permissions
