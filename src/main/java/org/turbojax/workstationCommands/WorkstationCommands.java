@@ -1,8 +1,7 @@
 package org.turbojax.workstationCommands;
 
+import com.google.common.base.Preconditions;
 import java.util.HashMap;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.inventory.MenuType;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,7 +29,7 @@ public final class WorkstationCommands extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        // Saving the default config
         saveDefaultConfig();
 
         // Registering the commands
@@ -46,22 +45,17 @@ public final class WorkstationCommands extends JavaPlugin {
     }
     
     public void loadCommands() {
-        // Unregistering all commands
-        CommandMap map = getServer().getCommandMap();
-        for (String label : menuTypes.keySet()) {
-            Command cmd = map.getCommand(label);
-            if (cmd == null) continue;
-            cmd.unregister(map);
-        }
-        
         // Loading each command
         menuTypes.forEach((label, menuType) -> {
-            // Skipping disabled commands
-            if (!getConfig().getBoolean(label + ".enabled")) return;
-
             // Getting the command
             PluginCommand command = getCommand(label);
-            assert command != null;
+            Preconditions.checkNotNull(command, "Could not find command \"" + label + "\"");
+
+            // Unregistering disabled commands
+            if (!getConfig().getBoolean(label + ".enabled")) {
+                command.unregister(getServer().getCommandMap());
+                return;
+            }
 
             // Registering permissions
             String basePermission = "wc." + label.substring(2);
