@@ -2,52 +2,122 @@ name: WorkstationCommands
 version: '1.0.1'
 main: org.turbojax.workstationCommands.WorkstationCommands
 api-version: '1.21.4'
+author: TurboJax
 
 commands:
-  craftingtable:
-    usage: "/craftingtable"
+  wcreload:
+    usage: "/wcreload"
+    description: "Reloads the WorkstationCommands configuration"
+  wccraft:
+    usage: "/wccraft"
     description: "Opens the crafting table GUI"
-
-  stonecutter:
-    usage: "/stonecutter"
+  wcstonecutter:
+    usage: "/wcstonecutter"
     description: "Opens the stonecutter GUI"
-
-  loom:
-    usage: "/loom"
+  wcloom:
+    usage: "/wcloom"
     description: "Opens the loom GUI"
-
-  cartographytable:
-    usage: "/cartographytable"
+  wccartography:
+    usage: "/wccartography"
     description: "Opens the cartography table GUI"
-
-  furnace:
-    usage: "/furnace"
+  wcfurnace:
+    usage: "/wcfurnace"
     description: "Opens the furnace GUI"
-
-  blastfurnace:
-    usage: "/blastfurnace"
+  wcblastfurnace:
+    usage: "/wcblastfurnace"
     description: "Opens the blast furnace GUI"
-
-  smoker:
-    usage: "/smoker"
+  wcsmoker:
+    usage: "/wcsmoker"
     description: "Opens the smoker GUI"
-
-  smithingtable:
-    usage: "/smithingtable"
+  wcsmithing:
+    usage: "/wcsmithing"
     description: "Opens the smithing table GUI"
-
-  anvil:
-    usage: "/anvil"
+  wcanvil:
+    usage: "/wcanvil"
     description: "Opens the anvil GUI"
-
-  enchantingtable:
-    usage: "/enchantingtable"
+  wcenchant:
+    usage: "/wcenchant"
     description: "Opens the enchanting table GUI"
-
-  grindstone:
-    usage: "/grindstone"
+  wcgrindstone:
+    usage: "/wcgrindstone"
     description: "Opens the grindstone GUI"
-
-  brewingstand:
-    usage: "/brewingstand"
+  wcbrew:
+    usage: "/wcbrew"
     description: "Opens the brewing stand GUI"
+
+permissions:
+  wc.reload:
+    description: "Allows players to use /wcreload to reload the config"
+    default: op
+  wc.craft:
+    description: "Allows the player to use /wccraft"
+    children:
+      wc.craft.other: true
+  wc.craft.other:
+    description: "Allows the player to use /wccraft <target>"
+  wc.stonecutter:
+    description: "Allows the player to use /wcstonecutter"
+    children:
+      wc.stonecutter.other: true
+  wc.stonecutter.other:
+    description: "Allows the player to use /wcstonecutter <target>"
+  wc.loom:
+    description: "Allows the player to use /wcloom"
+    children:
+      wc.loom.other: true
+  wc.loom.other:
+    description: "Allows the player to use /wcloom <target>"
+  wc.cartography:
+    description: "Allows the player to use /wccartography"
+    children:
+      wc.cartography.other: true
+  wc.cartography.other:
+    description: "Allows the player to use /wccartography <target>"
+  wc.furnace:
+    description: "Allows the player to use /wcfurnace"
+    children:
+      wc.furnace.other: true
+  wc.furnace.other:
+    description: "Allows the player to use /wcfurnace <target>"
+  wc.blastfurnace:
+    description: "Allows the player to use /wcblastfurnace"
+    children:
+      wc.blastfurnace.other: true
+  wc.blastfurnace.other:
+    description: "Allows the player to use /wcblastfurnace <target>"
+  wc.smoker:
+    description: "Allows the player to use /wcsmoker"
+    children:
+      wc.smoker.other: true
+  wc.smoker.other:
+    description: "Allows the player to use /wcsmoker <target>"
+  wc.smithing:
+    description: "Allows the player to use /wcsmithing"
+    children:
+      wc.smithing.other: true
+  wc.smithing.other:
+    description: "Allows the player to use /wcsmithing <target>"
+  wc.anvil:
+    description: "Allows the player to use /wcanvil"
+    children:
+      wc.anvil.other: true
+  wc.anvil.other:
+    description: "Allows the player to use /wcanvil <target>"
+  wc.enchant:
+    description: "Allows the player to use /wcenchant"
+    children:
+      wc.enchant.other: true
+  wc.enchant.other:
+    description: "Allows the player to use /wcenchant <target>"
+  wc.grindstone:
+    description: "Allows the player to use /wcgrindstone"
+    children:
+      wc.grindstone.other: true
+  wc.grindstone.other:
+    description: "Allows the player to use /wcgrindstone <target>"
+  wc.brew:
+    description: "Allows the player to use /wcbrew"
+    children:
+      wc.brew.other: true
+  wc.brew.other:
+    description: "Allows the player to use /wcbrew <target>"
