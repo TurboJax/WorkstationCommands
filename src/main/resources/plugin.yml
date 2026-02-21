@@ -138,10 +138,10 @@ permissions:
     description: "Allows the player to use /wcgrindstone <target>"
     default: op
   wc.brew:
-    description: "Allows the player to use /wcbretrue
-    default: op
+    description: "Allows the player to use /wcbrew"
+    default: true
     children:
       wc.brew.other: true
   wc.brew.other:
-  default: op
     description: "Allows the player to use /wcbrew <target>"
+    default: op
