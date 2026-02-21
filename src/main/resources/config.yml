@@ -8,12 +8,12 @@
 wccraft:
   enabled: true
   aliases:
-    - "craft"
+    - craft
 
 wcstonecutter:
   enabled: true
   aliases:
-    - "cutter"
+    - cutter
 
 wcloom:
   enabled: true
@@ -21,27 +21,27 @@ wcloom:
 wccartography:
   enabled: true
   aliases: 
-    - "cartography"
+    - cartography
 
 wcfurnace:
   enabled: true
   aliases:
-    - "smelt"
+    - smelt
 
 wcblastfurnace:
   enabled: true
   aliases:
-    - "blast"
+    - blast
 
 wcsmoker:
   enabled: true
   aliases:
-    - "smoke"
+    - smoke
 
 wcsmithing:
   enabled: true
   aliases:
-    - "smith"
+    - smith
 
 wcanvil:
   enabled: true
@@ -49,14 +49,14 @@ wcanvil:
 wcenchant:
   enabled: true
   aliases:
-    - "enchanting"
+    - enchanting
 
 wcgrindstone:
   enabled: true
   aliases:
-    - "grind"
+    - grind
 
 wcbrew:
   enabled: true
   aliases:
-    - "brew"
+    - brew
