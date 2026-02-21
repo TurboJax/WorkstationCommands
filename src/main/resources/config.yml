@@ -2,8 +2,8 @@
 # Here, you can enable or disable each command and manage their aliases.
 
 # Layout Reference
-# <command>.enabled: Whether the command should be enabled.
-# <command>.aliases: A list of aliases for the command.
+# <command>.enabled: Whether the command should be enabled.  If not specified, it defaults to false.
+# <command>.aliases: A list of aliases for the command.  If not specified, it defaults to an empty list.
 
 wccraft:
   enabled: true
