@@ -1,59 +1,53 @@
 # WorkstationCommands
 This is my first published minecraft plugin!  
-It adds commands for each workstation in minecraft.  
-These commands provide as much configuration as I can reasonably give.  You can enable/disable commands, add/remove aliases, and manage specific permissions.  
+With this plugin, you can allow players to open menus for any workstation from anywhere.
+You can enable/disable commands in the config, as well as manage the aliases of each command.
+Use `/wcreload` to reload the config without restarting.
 
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/workstationcommands)
 
-Since the permissions are configurable, here is a list of the defaults.  
-## Permissions
-workstationcommands.craftingtable: Allows players to use the /craftingtable command  
-workstationcommands.craftingtable.other: Allows players to use /craftingtable on other players  
-workstationcommands.stonecutter: Allows players to use the /stonecutter command  
-workstationcommands.stonecutter.other: Allows players to use /stonecutter on other players  
-workstationcommands.loom: Allows players to use the /loom command  
-workstationcommands.loom.other: Allows players to use /loom on other players  
-workstationcommands.cartographytable: Allows players to use the /cartographytable command  
-workstationcommands.cartographytable.other: Allows players to use /cartographytable on other players  
-workstationcommands.furnace: Allows players to use the /furnace command  
-workstationcommands.furnace.other: Allows players to use /furnace on other players  
-workstationcommands.blastfurnace: Allows players to use the /blastfurnace command  
-workstationcommands.blastfurnace.other: Allows players to use /blastfurnace on other players  
-workstationcommands.smoker: Allows players to use the /smoker command  
-workstationcommands.smoker.other: Allows players to use /smoker on other players  
-workstationcommands.smithingtable: Allows players to use the /smithingtable command  
-workstationcommands.smithingtable.other: Allows players to use /smithingtable on other players  
-workstationcommands.anvil: Allows players to use the /anvil command  
-workstationcommands.anvil.other: Allows players to use /anvil on other players  
-workstationcommands.enchantingtable: Allows players to use the /enchantingtable command  
-workstationcommands.enchantingtable.other: Allows players to use /enchantingtable on other players  
-workstationcommands.grindstone: Allows players to use the /grindstone command  
-workstationcommands.grindstone.other: Allows players to use /grindstone on other players  
-workstationcommands.brewingstand: Allows players to use the /brewingstand command  
-workstationcommands.brewingstand.other: Allows players to use /brewingstand on other players  
-  
 ## Commands  
-/craftingtable: Opens the crafting table GUI.  
-/craftingtable <player>: Opens the crafting table GUI for a player.  
-/stonecutter: Opens the stonecutter GUI.  
-/stonecutter <player>: Opens the stonecutter GUI for a player.  
-/loom: Opens the loom GUI.  
-/loom <player>: Opens the loom GUI for a player.  
-/cartographytable: Opens the cartography table GUI.  
-/cartographytable <player>: Opens the cartography table GUI for a player.  
-/furnace: Opens the furnace GUI.  
-/furnace <player>: Opens the furnace GUI for a player.  
-/blastfurnace: Opens the blast furnace GUI.  
-/blastfurnace <player>: Opens the blast furnace GUI for a player.  
-/smoker: Opens the smoker GUI.  
-/smoker <player>: Opens the smoker GUI for a player.  
-/smithingtable: Opens the smithing table GUI.  
-/smithingtable <player>: Opens the smithing table GUI for a player.  
-/anvil: Opens the anvil GUI.  
-/anvil <player>: Opens the anvil GUI for a player.  
-/enchantingtable: Opens the enchanting table GUI.  
-/enchantingtable <player>: Opens the enchanting table GUI for a player.  
-/grindstone: Opens the grindstone GUI.  
-/grindstone <player>: Opens the grindstone GUI for a player.  
-/brewingstand: Opens the brewing stand GUI.  
-/brewingstand <player>: Opens the brewing stand GUI for a player.  
+- `/wcreload`: Reloads the configuration file.
+- `/wccraft [target]`: Opens the crafting table GUI for the executor or the specified target.
+- `/wcstonecutter [target]`: Opens the stonecutter GUI for the executor or the specified target.
+- `/wcloom [target]`: Opens the loom GUI for the executor or the specified target.
+- `/wccartography [target]`: Opens the cartography table GUI for the executor or the specified target.
+- `/wcfurnace [target]`: Opens the furnace GUI for the executor or the specified target.
+- `/wcblastfurnace [target]`: Opens the blast furnace GUI for the executor or the specified target.
+- `/wcsmoker [target]`: Opens the smoker GUI for the executor or the specified target.
+- `/wcsmithing [target]`: Opens the smithing table GUI for the executor or the specified target.
+- `/wcanvil [target]`: Opens the anvil GUI for the executor or the specified target.
+- `/wcenchant [target]`: Opens the enchanting table GUI for the executor or the specified target.
+- `/wcgrindstone [target]`: Opens the grindstone GUI for the executor or the specified target.
+- `/wcbrew [target]`: Opens the brewing stand GUI for the executor or the specified target.
+
+## Player Permissions
+**Permissions given to every player**
+- `wc.craft`: Allows the player to use `/wccraft`.
+- `wc.stonecutter`: Allows the player to use `/wcstonecutter`.
+- `wc.loom`: Allows the player to use `/wcloom`.
+- `wc.cartography`: Allows the player to use `/wccartography`.
+- `wc.furnace`: Allows the player to use `/wcfurnace`.
+- `wc.blastfurnace`: Allows the player to use `/wcblastfurnace`.
+- `wc.smoker`: Allows the player to use `/wcsmoker`.
+- `wc.smithing`: Allows the player to use `/wcsmithing`.
+- `wc.anvil`: Allows the player to use `/wcanvil`.
+- `wc.enchant`: Allows the player to use `/wcenchant`.
+- `wc.grindstone`: Allows the player to use `/wcgrindstone`.
+- `wc.brew`: Allows the player to use `/wcbrew`.
+
+## Operator Permissions
+**Permissions given to every operator**
+- `wc.reload`: Allows players to use `/wcreload`.
+- `wc.craft.other`: Allows the player to use `/craft [target]`.
+- `wc.stonecutter.other`: Allows the player to use `/stonecutter [target]`.
+- `wc.loom.other`: Allows the player to use `/loom [target]`.
+- `wc.cartography.other`: Allows the player to use `/cartography [target]`.
+- `wc.furnace.other`: Allows the player to use `/furnace [target]`.
+- `wc.blastfurnace.other`: Allows the player to use `/blastfurnace [target]`.
+- `wc.smoker.other`: Allows the player to use `/smoker [target]`.
+- `wc.smithing.other`: Allows the player to use `/smithing [target]`.
+- `wc.anvil.other`: Allows the player to use `/anvil [target]`.
+- `wc.enchant.other`: Allows the player to use `/enchant [target]`.
+- `wc.grindstone.other`: Allows the player to use `/grindstone [target]`.
+- `wc.brew.other`: Allows the player to use `/brew [target]`.
