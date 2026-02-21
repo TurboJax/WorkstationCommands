@@ -6,6 +6,28 @@ Use `/wcreload` to reload the config without restarting.
 
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/workstationcommands)
 
+## Configuration
+Configuration for this plugin is very simple!  
+Commands default to being disabled if their config is not found, so you can remove a command from the config to disable it, or set the "enabled" flag to false.
+You can also define a list of aliases for the command.  If this list is not found, it doesn't create any.
+
+To enable only the crafting table, your config may look like this:  
+```yml
+wccraft:
+  enabled: true
+```
+That's it, just two lines.  
+
+Now let's say you dont want to run `/wccraft`, and you want a different command to open the gui.  
+This is where the aliases config comes into play.  Let's add `/craft` as an alias to `/wccraft` (This is in the default config)  
+```yml
+wccraft:
+  enabled: true
+  aliases:
+    - craft
+```
+Note that you don't need to include the forward slash when registering the alias.
+
 ## Commands  
 - `/wcreload`: Reloads the configuration file.
 - `/wccraft [target]`: Opens the crafting table GUI for the executor or the specified target.
