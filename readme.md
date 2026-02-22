@@ -6,6 +6,9 @@ Use `/wcreload` to reload the config without restarting.
 
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/workstationcommands)
 
+## SPONGE ISSUES
+The current version of the Sponge API does not allow for dynamic unregistration and registration of commands.  This means that /wcreload IS NOT A PART OF THE SPONGE IMPLEMENTATION!!!  
+
 ## Configuration
 Configuration for this plugin is very simple!  
 Commands default to being disabled if their config is not found, so you can remove a command from the config to disable it, or set the "enabled" flag to false.

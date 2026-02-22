@@ -1,75 +1,143 @@
 package org.turbojax.workstationCommands;
 
-import com.google.common.base.Preconditions;
+import com.google.inject.Inject;
+
+import net.kyori.adventure.text.Component;
+
+import java.nio.file.Path;
 import java.util.HashMap;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.inventory.MenuType;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.turbojax.workstationCommands.command.ReloadCommand;
-import org.turbojax.workstationCommands.command.WorkstationExecutor;
+import java.util.Optional;
+import java.util.function.Supplier;
+import org.apache.logging.log4j.Level;
 
-public final class WorkstationCommands extends JavaPlugin {
-    private final HashMap<String, MenuType> menuTypes;
+import org.apache.logging.log4j.Logger;
+import org.spongepowered.api.command.Command;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.parameter.Parameter;
+import org.spongepowered.api.entity.living.player.server.ServerPlayer;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.lifecycle.RegisterCommandEvent;
+import org.spongepowered.api.item.inventory.ContainerType;
+import org.spongepowered.api.item.inventory.ContainerTypes;
+import org.spongepowered.api.item.inventory.menu.InventoryMenu;
+import org.spongepowered.api.item.inventory.type.ViewableInventory;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.serialize.SerializationException;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
+import org.spongepowered.plugin.PluginContainer;
+import org.spongepowered.plugin.builtin.jvm.Plugin;
 
-    public WorkstationCommands() {
-        this.menuTypes = new HashMap<>();
-        menuTypes.put("wccraft", MenuType.CRAFTING);
-        menuTypes.put("wcstonecutter", MenuType.STONECUTTER);
-        menuTypes.put("wcloom", MenuType.LOOM);
-        menuTypes.put("wccartography", MenuType.CARTOGRAPHY_TABLE);
-        menuTypes.put("wcfurnace", MenuType.FURNACE);
-        menuTypes.put("wcblastfurnace", MenuType.BLAST_FURNACE);
-        menuTypes.put("wcsmoker", MenuType.SMOKER);
-        menuTypes.put("wcsmithing", MenuType.SMITHING);
-        menuTypes.put("wcanvil", MenuType.ANVIL);
-        menuTypes.put("wcenchant", MenuType.ENCHANTMENT);
-        menuTypes.put("wcgrindstone", MenuType.GRINDSTONE);
-        menuTypes.put("wcbrew", MenuType.BREWING_STAND);
+@Plugin("workstationcommands")
+public class WorkstationCommands {
+    private final PluginContainer pluginContainer;
+    private final Logger logger;
+
+    private final HashMap<String,Supplier<? extends ContainerType>> containerTypes;
+    private final HashMap<String,Component> descriptions;
+
+    YamlConfigurationLoader defaultConfigLoader;
+
+    @Inject
+    public WorkstationCommands(PluginContainer pluginContainer, Logger logger) {
+        this.pluginContainer = pluginContainer;
+        this.logger = logger;
+
+        this.containerTypes = new HashMap<>();
+        containerTypes.put("wccraft", ContainerTypes.CRAFTING);
+        containerTypes.put("wcstonecutter", ContainerTypes.STONECUTTER);
+        containerTypes.put("wcloom", ContainerTypes.LOOM);
+        containerTypes.put("wccartography", ContainerTypes.CARTOGRAPHY_TABLE);
+        containerTypes.put("wcfurnace", ContainerTypes.FURNACE);
+        containerTypes.put("wcblastfurnace", ContainerTypes.BLAST_FURNACE);
+        containerTypes.put("wcsmoker", ContainerTypes.SMOKER);
+        containerTypes.put("wcsmithing", ContainerTypes.SMITHING);
+        containerTypes.put("wcanvil", ContainerTypes.ANVIL);
+        containerTypes.put("wcenchant", ContainerTypes.ENCHANTMENT);
+        containerTypes.put("wcgrindstone", ContainerTypes.GRINDSTONE);
+        containerTypes.put("wcbrew", ContainerTypes.BREWING_STAND);
+
+        descriptions = new HashMap<>();
+        descriptions.put("wccraft", Component.text("Opens the crafting table GUI"));
+        descriptions.put("wcstonecutter", Component.text("Opens the stonecutter GUI"));
+        descriptions.put("wcloom", Component.text("Opens the loom GUI"));
+        descriptions.put("wccartography", Component.text("Opens the cartography table GUI"));
+        descriptions.put("wcfurnace", Component.text("Opens the furnace GUI"));
+        descriptions.put("wcblastfurnace", Component.text("Opens the blast furnace GUI"));
+        descriptions.put("wcsmoker", Component.text("Opens the smoker GUI"));
+        descriptions.put("wcsmithing", Component.text("Opens the smithing table GUI"));
+        descriptions.put("wcanvil", Component.text("Opens the anvil GUI"));
+        descriptions.put("wcenchant", Component.text("Opens the enchanting table GUI"));
+        descriptions.put("wcgrindstone", Component.text("Opens the grindstone GUI"));
+        descriptions.put("wcbrew", Component.text("Opens the brewing stand GUI"));
+
+        // Loading the default config
+        defaultConfigLoader = YamlConfigurationLoader.builder()
+            .path(Path.of("config.yml"))
+            .build();
     }
 
-    @Override
-    public void onEnable() {
-        // Saving the default config
-        saveDefaultConfig();
+    @Listener
+    private void onRegisterCommands(final RegisterCommandEvent<Command.Parameterized> event) {
+        // Register a simple command
+        // When possible, all commands should be registered within a command register event
+        final Parameter.Value<ServerPlayer> nameParam = Parameter.player().key("name").build();
 
-        // Registering the commands
-        loadCommands();
+        for (String label : containerTypes.keySet()) {
+            // Getting the configs
+            String[] aliases = {};
+            try {
+                CommentedConfigurationNode config = defaultConfigLoader.load();
 
-        // Registering the reload command
-        registerCommand("wcreload", new ReloadCommand(this));
-    }
+                // Skipping disabled commands
+                if (!config.node(label, "enabled").getBoolean()) continue;
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-    
-    public void loadCommands() {
-        // Loading each command
-        menuTypes.forEach((label, menuType) -> {
-            // Getting the command
-            PluginCommand command = getCommand(label);
-            Preconditions.checkNotNull(command, "Could not find command \"" + label + "\"");
-
-            // Unregistering disabled commands
-            if (!getConfig().getBoolean(label + ".enabled")) {
-                command.unregister(getServer().getCommandMap());
-                return;
+                // TODO: Check if there needs to be a default option for this config call.
+                aliases = config.node(label, "aliases").getList(String.class).toArray(String[]::new);
+            } catch (SerializationException err) {
+                logger.log(Level.ERROR, "Failed to deserialize aliases for " + label + ".aliases");
+            } catch (ConfigurateException err) {
+                logger.log(Level.ERROR, "Failed to load YAML from the default config.");
             }
 
-            // Registering permissions
-            String basePermission = "wc." + label.substring(2);
-            command.setPermission(basePermission);
+            // Getting the permissions from the label
+            String perm = "wc." + label.substring(2);
+            String otherPerm = perm + ".other";
 
-            // Assigning the Executor and TabCompleter
-            WorkstationExecutor executor = new WorkstationExecutor(basePermission + ".other", menuType);
-            command.setExecutor(executor);
-            command.setTabCompleter(executor);
+            // Registering the command
+            event.register(this.pluginContainer, Command.builder()
+                .addParameter(nameParam)
+                .shortDescription(descriptions.get(label))
+                .permission((String) null)
+                .executor(ctx -> {
+                    // Getting the player argument
+                    Optional<ServerPlayer> playerArg = ctx.one(nameParam);
+                    if (playerArg.isPresent()) {
+                        // Making sure the sender can use the command on other players
+                        if (!ctx.cause().hasPermission(otherPerm)) {
+                            return CommandResult.error(Component.text("You don't have permission to run this command!"));
+                        }
 
-            // Registering aliases
-            for (String alias : getConfig().getStringList(label + ".aliases")) {
-                getServer().getCommandMap().register(alias, "workstationcommands", command);
-            }
-        });
+                        // Opening the menu for the target
+                        InventoryMenu.of(ViewableInventory.builder().type(containerTypes.get(label)).completeStructure().build()).open(playerArg.get());
+                        return CommandResult.success();
+                    }
+
+                    // Making sure the sender can use the command
+                    if (!ctx.cause().hasPermission(perm) && !ctx.cause().hasPermission(otherPerm)) {
+                        return CommandResult.error(Component.text("You don't have permission to run this command!"));
+                    }
+
+                    // Making sure the sender is a player
+                    if (!(ctx.cause().root() instanceof ServerPlayer player)) {
+                        return CommandResult.error(Component.text("This command can ony be used by a player"));
+                    }
+
+                    // Opening the menu for the sender
+                    InventoryMenu.of(ViewableInventory.builder().type(containerTypes.get(label)).completeStructure().build()).open(player);
+                    return CommandResult.success();
+                })
+                .build(), label, aliases);
+        }
     }
 }
