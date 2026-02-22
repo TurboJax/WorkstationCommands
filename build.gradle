@@ -3,7 +3,7 @@ import org.spongepowered.plugin.metadata.model.PluginDependency;
 
 plugins {
     id 'java-library'
-    id "org.spongepowered.gradle.plugin" version "2.3.0"
+    id "org.spongepowered.gradle.plugin" version "2.3.1-SNAPSHOT"
 }
 
 group = 'org.turbojax'
@@ -15,6 +15,7 @@ repositories {
 
 sponge {
     apiVersion "17.0.0"
+    minecraftVersion "1.21.10"
     license "GPLv3"
     loader {
         name PluginLoaders.JAVA_PLAIN
