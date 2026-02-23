@@ -1,9 +1,14 @@
 package org.turbojax.workstationCommands;
 
 import com.google.common.base.Preconditions;
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.logging.Level;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.inventory.MenuType;
+import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.turbojax.workstationCommands.command.ReloadCommand;
 import org.turbojax.workstationCommands.command.WorkstationExecutor;
@@ -36,7 +41,7 @@ public final class WorkstationCommands extends JavaPlugin {
         loadCommands();
 
         // Registering the reload command
-        registerCommand("wcreload", new ReloadCommand(this));
+        getCommand("wcreload").setExecutor(new ReloadCommand(this));
     }
 
     @Override
@@ -45,6 +50,24 @@ public final class WorkstationCommands extends JavaPlugin {
     }
     
     public void loadCommands() {
+        SimplePluginManager simplePluginManager = (SimplePluginManager) this.getServer().getPluginManager();
+        SimpleCommandMap simpleCommandMap = null;
+        try {
+            Field commandMapField = SimplePluginManager.class.getDeclaredField("commandMap");
+            commandMapField.setAccessible(true);
+            simpleCommandMap = (SimpleCommandMap) commandMapField.get(simplePluginManager);
+            commandMapField.setAccessible(false);
+        } catch (NoSuchFieldException err) {
+            getLogger().log(Level.SEVERE, "Could not find the command map in the PluginManager.", err);
+        } catch (SecurityException err) {
+            getLogger().log(Level.SEVERE, "Could not find the command map in the PluginManager.", err);
+        } catch (IllegalArgumentException err) {
+            getLogger().log(Level.SEVERE, "Could not retrieve the command map for a class \"" + simplePluginManager.getClass().getSimpleName() + "\"", err);
+        } catch (IllegalAccessException err) {
+            getLogger().log(Level.SEVERE, "Could not access the command map in the PluginManager.", err);
+        }
+
+        final CommandMap cmdMap = simpleCommandMap;
         // Loading each command
         menuTypes.forEach((label, menuType) -> {
             // Getting the command
@@ -53,7 +76,7 @@ public final class WorkstationCommands extends JavaPlugin {
 
             // Unregistering disabled commands
             if (!getConfig().getBoolean(label + ".enabled")) {
-                command.unregister(getServer().getCommandMap());
+                command.unregister(cmdMap);
                 return;
             }
 
@@ -67,9 +90,7 @@ public final class WorkstationCommands extends JavaPlugin {
             command.setTabCompleter(executor);
 
             // Registering aliases
-            for (String alias : getConfig().getStringList(label + ".aliases")) {
-                getServer().getCommandMap().register(alias, "workstationcommands", command);
-            }
+            command.setAliases(getConfig().getStringList(label + ".aliases"));
         });
     }
 }

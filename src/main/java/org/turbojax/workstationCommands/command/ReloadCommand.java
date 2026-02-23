@@ -1,10 +1,12 @@
 package org.turbojax.workstationCommands.command;
 
-import io.papermc.paper.command.brigadier.BasicCommand;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 import org.turbojax.workstationCommands.WorkstationCommands;
 
-public class ReloadCommand implements BasicCommand {
+public class ReloadCommand implements CommandExecutor {
     private final WorkstationCommands plugin;
 
     public ReloadCommand(WorkstationCommands plugin) {
@@ -12,7 +14,9 @@ public class ReloadCommand implements BasicCommand {
     }
 
     @Override
-    public void execute(CommandSourceStack commandSourceStack, String[] args) {
-        plugin.loadCommands();        
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        plugin.loadCommands();
+        
+        return true;
     }
 }

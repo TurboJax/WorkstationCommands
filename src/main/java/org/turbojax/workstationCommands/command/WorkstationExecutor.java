@@ -22,8 +22,7 @@ public class WorkstationExecutor implements TabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String @NotNull [] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         // Handling when the command is given a parameter
         if (args.length == 1) {
             // Verifying that the sender has the right permissions
@@ -38,13 +37,13 @@ public class WorkstationExecutor implements TabExecutor {
                 return false;
             }
 
-            menuType.create(player, null).open();
+            player.openInventory(menuType.typed().builder().build(player));
             return true;
         }
 
         // Opening the GUI
         if (sender instanceof Player player) {
-            menuType.create(player, null).open();
+            player.openInventory(menuType.typed().builder().build(player));
             return true;
         } else {
             sender.sendMessage("This command can only be run by a player.");
@@ -54,7 +53,7 @@ public class WorkstationExecutor implements TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         // Skipping if the executor can't open the menu for another player
         if (!sender.hasPermission(otherPermission)) return List.of();
 
