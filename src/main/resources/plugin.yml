@@ -1,8 +1,9 @@
 name: WorkstationCommands
 version: '$version'
 main: org.turbojax.workstationCommands.WorkstationCommands
-api-version: '1.21.4'
+api-version: '26.1.2'
 author: TurboJax
+folia-supported: true
 
 commands:
   wcreload:
